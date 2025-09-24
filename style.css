@@ -1,0 +1,32 @@
+﻿body {
+  background-color: #f8f9fa;
+  font-family: 'Cairo', sans-serif;
+  color: #1a1a2e;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #0f1e3e;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.logo img {
+  max-height: 60px;
+  width: auto;
+}
+
+.site-name {
+  font-size: 28px;
+  font-weight: bold;
+  color: #d4af37;
+}
