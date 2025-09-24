@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة التحكم - بيت حلبي</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="شعار بيت حلبي">
+      <span class="site-name">بيت حلبي</span>
+    </a>
+    <nav>
+      <a href="post-property.html">نشر عقار</a>
+      <a href="favorites.html">المفضلة</a>
+      <a href="messages.html">الرسائل</a>
+      <a href="admin.html">لوحة المشرف</a>
+      <a href="#" onclick="logout()">تسجيل الخروج</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2>مرحبًا بك في بيت حلبي</h2>
+      <p>من هنا يمكنك إدارة عقاراتك، التواصل مع الآخرين، وحفظ المفضلة.</p>
+    </div>
+
+    <div class="card">
+      <h3>معلومات حسابك</h3>
+      <p id="userInfo"></p>
+    </div>
+  </div>
+
+  <script>
+    const currentEmail = localStorage.getItem("currentUserEmail");
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const me = users.find(u => u.email === currentEmail);
+    if (me) {
+      document.getElementById("userInfo").innerHTML = `
+        <strong>الاسم:</strong> ${me.name} <br>
+        <strong>البريد:</strong> ${me.email} <br>
+        <strong>الهاتف:</strong> ${me.phone} <br>
+        <strong>الحالة:</strong> ${me.isBanned ? "محظور" : "نشط"}
+      `;
+    }
+  </script>
+</body>
+</html>

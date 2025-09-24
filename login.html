@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل الدخول - بيت حلبي</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="شعار بيت حلبي">
+      <span class="site-name">بيت حلبي</span>
+    </a>
+    <nav>
+      <a href="signup.html">إنشاء حساب</a>
+      <a href="index.html">الرئيسية</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2>🔑 تسجيل الدخول</h2>
+      <form id="loginForm">
+        <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+        <input type="password" id="password" placeholder="كلمة المرور" required>
+        <button type="submit">دخول</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      login(email, password); // تستدعي الدالة من script.js
+    });
+  </script>
+</body>
+</html>

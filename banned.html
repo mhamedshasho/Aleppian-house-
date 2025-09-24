@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تم حظرك - بيت حلبي</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="شعار بيت حلبي">
+      <span class="site-name">بيت حلبي</span>
+    </a>
+    <nav>
+      <a href="index.html">الرئيسية</a>
+      <a href="#" onclick="logout()">تسجيل الخروج</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2>🚫 تم حظرك من استخدام المنصة</h2>
+      <p id="banReason">لقد تم حظرك بسبب مخالفة الشروط.</p>
+      <p>إذا كنت تعتقد أن هذا خطأ، يرجى التواصل مع الإدارة عبر البريد: <strong>admin@halaby.com</strong></p>
+      <button onclick="logout()">تسجيل الخروج</button>
+    </div>
+  </div>
+
+  <script>
+    const currentEmail = localStorage.getItem("currentUserEmail");
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const me = users.find(u => u.email === currentEmail);
+    if (me && me.banReason) {
+      document.getElementById("banReason").textContent = "لقد تم حظرك. السبب: " + me.banReason;
+    }
+
+    function logout() {
+      localStorage.removeItem("currentUserEmail");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>نشر عقار - بيت حلبي</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="شعار بيت حلبي">
+      <span class="site-name">بيت حلبي</span>
+    </a>
+    <nav>
+      <a href="dashboard.html">لوحة التحكم</a>
+      <a href="index.html">الرئيسية</a>
+      <a href="#" onclick="logout()">تسجيل الخروج</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2>🏠 نشر عقار جديد</h2>
+      <form id="propertyForm">
+        <input type="text" id="name" placeholder="عنوان العقار" required>
+        <textarea id="description" placeholder="وصف العقار" required></textarea>
+        <input type="number" id="price" placeholder="السعر بالدولار" required>
+        <input type="text" id="location" placeholder="الموقع (داخل حلب فقط)" required>
+        <input type="email" id="contact" placeholder="بريدك للتواصل" required>
+        <input type="file" id="image" accept="image/*" required>
+        <button type="submit">نشر العقار</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("propertyForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const description = document.getElementById("description").value.trim();
+      const price = document.getElementById("price").value.trim();
+      const location = document.getElementById("location").value.trim();
+      const contact = document.getElementById("contact").value.trim();
+      const imageFile = document.getElementById("image").files[0];
+
+      if (!location.includes("حلب")) {
+        alert("❌ يُسمح بنشر العقارات في محافظة حلب فقط.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function() {
+        const image = reader.result;
+        const properties = JSON.parse(localStorage.getItem("properties")) || [];
+        properties.push({
+          id: Date.now().toString(),
+          name,
+          description,
+          price,
+          location,
+          contact,
+          image,
+          owner: localStorage.getItem("currentUserEmail")
+        });
+        localStorage.setItem("properties", JSON.stringify(properties));
+        alert("✅ تم نشر العقار بنجاح");
+        window.location.href = "dashboard.html";
+      };
+      reader.readAsDataURL(imageFile);
+    });
+  </script>
+</body>
+</html>

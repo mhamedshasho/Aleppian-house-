@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة المشرف - بيت حلبي</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="شعار بيت حلبي">
+      <span class="site-name">بيت حلبي</span>
+    </a>
+    <nav>
+      <a href="dashboard.html">لوحة المستخدم</a>
+      <a href="index.html">الرئيسية</a>
+      <a href="#" onclick="logout()">تسجيل الخروج</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2>إدارة المستخدمين</h2>
+      <div id="usersList">جارٍ التحميل...</div>
+    </div>
+  </div>
+
+  <script>
+    function renderUsers() {
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      if (users.length === 0) {
+        document.getElementById("usersList").innerHTML = "<p>لا يوجد مستخدمون مسجلون بعد.</p>";
+        return;
+      }
+      document.getElementById("usersList").innerHTML = users.map(u => `
+        <div class="card">
+          <p><strong>الاسم:</strong> ${u.name || "-"} | <strong>البريد:</strong> ${u.email}</p>
+          <p><strong>الهاتف:</strong> ${u.phone || "-"} | <strong>الحالة:</strong> ${u.isBanned ? "محظور" : "نشط"}</p>
+          ${u.isBanned
+            ? `<button onclick="unbanUser('${u.email}');renderUsers()">إلغاء الحظر</button>`
+            : `<button onclick="const r=prompt('سبب الحظر:','مخالفة الشروط');if(r){banUser('${u.email}',r);renderUsers();}">حظر</button>`}
+        </div>
+      `).join("");
+    }
+    document.addEventListener("DOMContentLoaded", renderUsers);
+  </script>
+</body>
+</html>
